@@ -81,7 +81,7 @@ export const getProducts = async (_req: Request, res: Response) => {
     }
 
     const products = await Product.findAll({
-      where: { createdBy: userId },
+      // where: { createdBy: userId }, // Uncomment this line if you want to filter products by user
       include: [User],
       order: [
         ["updatedAt", "DESC"],
