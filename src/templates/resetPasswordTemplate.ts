@@ -95,7 +95,7 @@ export const resetPasswordTemplate = (props: ResetPasswordTemplateProps): string
             <p>Estamos aquí para ayudarte, ¡siempre que lo necesites!</p>
           </div>
           <div class="footer">
-            <p>&copy; ${new Date().getFullYear()} Seek. Todos los derechos reservados.</p>
+            <p>&copy; ${new Date().getFullYear()} Conteo. Todos los derechos reservados.</p>
           </div>
         </div>
       </body>

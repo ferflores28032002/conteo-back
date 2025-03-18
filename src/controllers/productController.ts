@@ -102,8 +102,8 @@ export const updateProduct = async (req: Request, res: Response) => {
     if (req.body?.quantity) {
       req.body.quantity = parseInt(req.body.quantity, 10);
     }
+
     const { id } = req.params;
-    const dto = new UpdateProductDto();
     const product = await Product.findByPk(id);
 
     if (!product) {
@@ -111,12 +111,15 @@ export const updateProduct = async (req: Request, res: Response) => {
       return;
     }
 
-    let imageUrl = product.image;
+    let imageUrl = product.image; 
+
     if (req.file) {
-      imageUrl = await uploadImage(req.file);
+      imageUrl = await uploadImage(req.file); 
     }
 
+    const dto = new UpdateProductDto();
     Object.assign(dto, req.body, { image: imageUrl });
+
     await validateOrReject(dto);
 
     const duplicateProduct = await Product.findOne({
@@ -131,16 +134,16 @@ export const updateProduct = async (req: Request, res: Response) => {
       return;
     }
 
-    Object.assign(product, req.body);
+    Object.assign(product, req.body, { image: imageUrl });
+
     await product.save();
 
-    res
-      .status(200)
-      .json({ message: PRODUCT_MESSAGES.PRODUCT_UPDATED, product });
+    res.status(200).json({ message: PRODUCT_MESSAGES.PRODUCT_UPDATED, product });
   } catch (error) {
     throw CustomError.InternalServerError();
   }
 };
+
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
